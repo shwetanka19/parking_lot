@@ -1,0 +1,5 @@
+.idea/
+*.pdf
+*.iml
+bin/
+functional_spec/
