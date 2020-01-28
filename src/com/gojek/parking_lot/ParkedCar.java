@@ -1,4 +1,4 @@
-package com.gojek.interview;
+package com.gojek.parking_lot;
 
 import java.io.Serializable;
 

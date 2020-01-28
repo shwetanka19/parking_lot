@@ -1,4 +1,4 @@
-package com.gojek.interview;
+package com.gojek.parking_lot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +12,7 @@ public class ParkingLot {
     public ParkingLot(Integer size){
         this.size = size;
         cars = new Car[size];
+        nearest = 0;
     }
 
     public Boolean isFull(){
@@ -35,12 +36,19 @@ public class ParkingLot {
         return nearest+1;
     }
 
-    public void removeCar(Integer slot){
+    public boolean removeCar(Integer slot){
+        if (slot > size || slot <1){
+            return false;
+        }
+        if (cars[slot-1] == null){
+            return false;
+        }
         cars[slot-1] = null;
         currentCars--;
         if (slot-1 < nearest){
             nearest = slot-1;
         }
+        return true;
     }
 
     public List<ParkedCar> status(){
@@ -56,7 +64,7 @@ public class ParkingLot {
     public List<ParkedCar> getCarsByColor(String color){
         List<ParkedCar> parkedCars = new ArrayList<>();
         for (int i=0;i<size;i++){
-            if (cars[i].getColor().equalsIgnoreCase(color)){
+            if (cars[i] != null && cars[i].getColor().equalsIgnoreCase(color)){
                 parkedCars.add(new ParkedCar(i+1, cars[i]));
             }
         }
@@ -65,7 +73,7 @@ public class ParkingLot {
 
     public ParkedCar getCarByRegistration(String registrationNo){
         for (int i=0;i<size;i++){
-            if (cars[i].getRegistrationNo().equalsIgnoreCase(registrationNo)){
+            if (cars[i] != null && cars[i].getRegistrationNo().equalsIgnoreCase(registrationNo)){
                 return new ParkedCar(i+1, cars[i]);
             }
         }
